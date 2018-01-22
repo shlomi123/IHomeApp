@@ -1,6 +1,7 @@
 package com.ihome.android.ihome;
 
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,38 +13,31 @@ import java.net.Socket;
  * Created by User on 20-Jan-18.
  */
 
-class SendMessageToServer extends AsyncTask<String,Void,Void> {
+class SendMessageToServer extends AsyncTask<String,String,String> {
+
     @Override
-    protected Void doInBackground(String... params) {   //params[0] - message, params[1] - server IP
+    protected String doInBackground(String... params) {   //params[0] - message, params[1] - server IP
         try{
             Socket soc;
             PrintWriter writer;
-            soc = new Socket(params[1], 1618); // open socket and send message
+            // open socket and send message
+            soc = new Socket(params[1], 1618);
+            //send message to server
             writer = new PrintWriter(soc.getOutputStream());
             writer.write(params[0]);
             writer.flush();
+
+            //create socket reader
             BufferedReader reader = new BufferedReader(new InputStreamReader(soc.getInputStream()));
-
-
             StringBuilder response = new StringBuilder();
             String line;
+            //read from socket
             while ((line = reader.readLine()) != null)
                 response.append(line);
 
+            publishProgress(response.toString());
 
-            //ans = reader.readLine();
-            if(!response.equals("200"))
-            {
-                            /*runOnUiThread(new Runnable() {
-                                public vo id run() {
-
-                                    Toast.makeText(<your class name>.this, "Cool Ha?", Toast.LENGTH_SHORT).show();
-                                }
-                            });*/
-
-            }
             writer.close();
-            //TODO RECIEVE OK FROM SERVER
             soc.close();
 
         }catch(IOException e){
@@ -51,4 +45,13 @@ class SendMessageToServer extends AsyncTask<String,Void,Void> {
         }
         return null;
     }
+
+    @Override
+    protected void onPostExecute(String result)
+    {
+        if(result.equals("200"))
+        {
+        }
+    }
+
 }

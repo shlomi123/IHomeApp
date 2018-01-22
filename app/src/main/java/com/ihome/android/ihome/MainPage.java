@@ -1,5 +1,6 @@
 package com.ihome.android.ihome;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,9 +49,10 @@ public class MainPage extends AppCompatActivity {
 
                 message = message.substring(0, message.length()-2);
 
-                SendFileToServer m = new SendFileToServer();    // Build the upload file message
-                m.execute(message, getString(R.string.SERVER_IP), getString(R.string.CODE_UPLOAD));
-
+                Context context = this;
+                Intent upload_service= new Intent(context, Upload_Service.class);
+                upload_service.setData(Uri.parse(message));
+                context.startService(upload_service);
             }
         }
     }

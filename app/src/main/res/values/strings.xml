@@ -2,7 +2,7 @@
     <string name="app_name">IHome</string>
     <string name="wifiSSID">iHome</string>
     <string name="logInTitle">Log in</string>
-    <string name="hint_username">User name</string>
+    <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
     <string name="hint_code">Code</string>
     <string name="code">abcd</string>
@@ -14,7 +14,7 @@
     <string name="CODE_REGISTER">102</string>
     <string name="CODE_UPLOAD">103</string>
 
-    <string name="SERVER_IP">192.168.1.54</string>
+    <string name="SERVER_IP">192.168.1.26</string>
 
 
 </resources>
