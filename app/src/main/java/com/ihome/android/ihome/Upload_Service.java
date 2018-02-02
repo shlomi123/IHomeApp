@@ -41,6 +41,7 @@ public class Upload_Service extends IntentService {
             BufferedInputStream bufferinputstream = null;
             OutputStream outputstream = null;
 
+
             //send filenames
             String[] filePaths = intent.getData().toString().split("&&");
             for (int i = 0; i < filePaths.length; i++)
@@ -52,31 +53,37 @@ public class Upload_Service extends IntentService {
 
             fileNames = fileNames.substring(0, fileNames.length()-2);
             // Send Upload code according to protocol to server
-            writer.write("103" + "@@" + "NEW_TXT.txt"); // works when we send HELLO
+            writer.write("103" + "@@" + fileNames); // works when we send HELLO
             writer.flush();
 
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(soc.getInputStream()));
-            final StringBuilder response = new StringBuilder();
-            String line;
             //read from socket
-            while ((line = reader.readLine()) != null)
-                response.append(line);
-
-            /*Log.d("testing", response.toString());
-
-
-            writer.write("blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"); // works when we send HELLO
-            writer.flush();
-
+            BufferedReader reader = new BufferedReader(new InputStreamReader(soc.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
             while ((line = reader.readLine()) != null)
                 response.append(line);
 
             Log.d("testing", response.toString());
 
-            writer.close();*/
+
+            /*File file = new File(filePaths[0]);
+            byte [] byteArray  = new byte [(int)file.length()];
+            fileinputstream = new FileInputStream(file);
+            bufferinputstream = new BufferedInputStream(fileinputstream);
+            bufferinputstream.read(byteArray,0,byteArray.length);
+            outputstream = soc.getOutputStream();
+            outputstream.write(byteArray,0,byteArray.length);
+            outputstream.flush();
+
+            //read from socket
+            while ((line = reader.readLine()) != null)
+                response.append(line);
+
+            Log.d("testing", response.toString());*/
+
             //check if server approves
-            if(!response.toString().equals("200"))
+            /*if(!response.toString().equals("200200"))
             {
                 Handler handler = new Handler(Looper.getMainLooper());//this is how to do "Toast" in service
 
@@ -91,50 +98,36 @@ public class Upload_Service extends IntentService {
             }
             else
             {
-                Handler handler = new Handler(Looper.getMainLooper()); //this is how to do "Toast" in service
-
-                handler.post(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        Toast.makeText(Upload_Service.this.getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
-                    }
-                });
 
                 for (int i = 0; i < filePaths.length; i++)
                 {
                     // Send file to server
                     try {
                         // send file
+
                         File file = new File(filePaths[i]);
                         byte [] byteArray  = new byte [(int)file.length()];
                         fileinputstream = new FileInputStream(file);
                         bufferinputstream = new BufferedInputStream(fileinputstream);
                         bufferinputstream.read(byteArray,0,byteArray.length);
                         outputstream = soc.getOutputStream();
-                        Handler h = new Handler(Looper.getMainLooper());
-
-                        h.post(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                Toast.makeText(Upload_Service.this.getApplicationContext(),"debug",Toast.LENGTH_SHORT).show();
-                            }
-                        });
                         outputstream.write(byteArray,0,byteArray.length);
                         outputstream.flush();
+
+                        Log.d("testing", "sent");
                     }
                     finally {
                         if (bufferinputstream != null) bufferinputstream.close();
                         if (outputstream != null) outputstream.close();
                         if (soc!=null) soc.close();
                     }
-
                 }
-                writer.close();
-            }
+            }*/
+
+
 
         }catch(IOException e){
+            Log.d("testing", e.toString());
             e.printStackTrace();
         }
     }
