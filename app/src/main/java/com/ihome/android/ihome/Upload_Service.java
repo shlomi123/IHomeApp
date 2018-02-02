@@ -100,7 +100,7 @@ public class Upload_Service extends IntentService {
                         Toast.makeText(Upload_Service.this.getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
                     }
                 });
-
+/*
                 for (int i = 0; i < filePaths.length; i++)
                 {
                     // Send file to server
@@ -130,7 +130,7 @@ public class Upload_Service extends IntentService {
                         if (soc!=null) soc.close();
                     }
 
-                }
+                }*/
                 writer.close();
             }
 
