@@ -132,12 +132,3 @@ public class Upload_Service extends IntentService {
         }
     }
 }
-/*Handler handler = new Handler(Looper.getMainLooper());
-
-handler.poutputstreamt(new Runnable() {
-
-@Override
-public void run() {
-        Toast.makeText(Upload_Service.this.getApplicationContext(), "debug",Toast.LENGTH_SHORT).show();
-        }
-        });*/
