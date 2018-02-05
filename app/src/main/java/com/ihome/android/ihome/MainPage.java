@@ -28,8 +28,17 @@ public class MainPage extends AppCompatActivity {
                 Intent i2 = new Intent(getApplicationContext(), FileChooser.class);
                 i2.putExtra(Constants.SELECTION_MODE,Constants.SELECTION_MODES.MULTIPLE_SELECTION.ordinal());
                 startActivityForResult(i2,1);
+            }
+        });
 
-                //TODO UPLOAD SELECTED FILES TO RASPBERRY
+        ImageButton download = (ImageButton) findViewById(R.id.btnDownload);
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MainPage.this,
+                        Download.class);
+                startActivity(myIntent);
+
             }
         });
     }

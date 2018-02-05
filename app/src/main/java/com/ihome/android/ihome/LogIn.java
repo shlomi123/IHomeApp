@@ -94,7 +94,7 @@ public class LogIn extends AppCompatActivity {
                 StringBuilder response = new StringBuilder();
                 String line;
                 //read from socket
-                while ((line = reader.readLine()) != null)
+                while ((line = reader.readLine()) != null)  //TODO REPLACE
                     response.append(line);
 
                 writer.close();

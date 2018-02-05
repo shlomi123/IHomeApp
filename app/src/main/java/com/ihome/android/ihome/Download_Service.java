@@ -3,6 +3,26 @@ package com.ihome.android.ihome;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
+import android.net.Uri;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+import android.widget.Toast;
+
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -12,80 +32,78 @@ import android.content.Context;
  * helper methods.
  */
 public class Download_Service extends IntentService {
-    // TODO: Rename actions, choose action names that describe tasks that this
-    // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    private static final String ACTION_FOO = "com.ihome.android.ihome.action.FOO";
-    private static final String ACTION_BAZ = "com.ihome.android.ihome.action.BAZ";
-
-    // TODO: Rename parameters
-    private static final String EXTRA_PARAM1 = "com.ihome.android.ihome.extra.PARAM1";
-    private static final String EXTRA_PARAM2 = "com.ihome.android.ihome.extra.PARAM2";
-
-    /**
-     * Starts this service to perform action Foo with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     * @see IntentService
-     */
-    // TODO: Customize helper method
-    public static void startActionFoo(Context context, String param1, String param2) {
-        Intent intent = new Intent(context, Download_Service.class);
-        intent.setAction(ACTION_FOO);
-        intent.putExtra(EXTRA_PARAM1, param1);
-        intent.putExtra(EXTRA_PARAM2, param2);
-        context.startService(intent);
-    }
-
-    /**
-     * Starts this service to perform action Baz with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     * @see IntentService
-     */
-    // TODO: Customize helper method
-    public static void startActionBaz(Context context, String param1, String param2) {
-        Intent intent = new Intent(context, Download_Service.class);
-        intent.setAction(ACTION_BAZ);
-        intent.putExtra(EXTRA_PARAM1, param1);
-        intent.putExtra(EXTRA_PARAM2, param2);
-        context.startService(intent);
-    }
 
     public Download_Service() {
         super("Download_Service");
     }
 
+
     @Override
-    protected void onHandleIntent(Intent intent) {
-        if (intent != null) {
-            final String action = intent.getAction();
-            if (ACTION_FOO.equals(action)) {
-                final String param1 = intent.getStringExtra(EXTRA_PARAM1);
-                final String param2 = intent.getStringExtra(EXTRA_PARAM2);
-                handleActionFoo(param1, param2);
-            } else if (ACTION_BAZ.equals(action)) {
-                final String param1 = intent.getStringExtra(EXTRA_PARAM1);
-                final String param2 = intent.getStringExtra(EXTRA_PARAM2);
-                handleActionBaz(param1, param2);
+    protected void onHandleIntent(final Intent intent) {
+
+        try
+        {
+            // open socket and send message
+            Socket soc = new Socket(getString(R.string.SERVER_IP), 1618);
+            DataInputStream reader = new DataInputStream(soc.getInputStream());
+            String response = "";
+            byte[] msg = new byte[1000];
+            Boolean end = false;
+            int bytesRead;
+            //send message to server
+            PrintWriter writer = new PrintWriter(soc.getOutputStream());
+            writer.write("105" + "@@" + intent.getDataString());
+            writer.flush();
+
+            while (!end)
+            {
+                bytesRead = reader.read(msg);
+                response += new String(msg, 0, bytesRead);
+                if (response.equals("200"))
+                {
+                    end = true;
+                }
             }
+
+            writer.write("200");
+            writer.flush();
+
+            File root = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath());
+            File gpxfile = new File(root + File.separator + intent.getDataString());
+            gpxfile.createNewFile();
+            //Path path = Paths.get(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath());
+            OutputStream output = null;
+            output = new BufferedOutputStream(new FileOutputStream(gpxfile));
+            //FileWriter fileWriter = new FileWriter(gpxfile);
+
+            end = false;
+            response = "";
+            msg = new byte[4096];
+
+            while (!end)
+            {
+                bytesRead = reader.read(msg);
+                //fileWriter.write(msg.toString());
+                //fileWriter.flush();
+                output.write(msg);
+              //  Files.write(path, aBytes); //creates, overwrites
+                /*if (response.substring(response.length() - 4).equals("200"))
+                {
+                    end = true;
+                }*/
+
+            }
+
+            //fileWriter.close();
+            Log.d("testing", response);
+
+
+
+            soc.close();        //TODO CLOSE SOCKETS EVERYWHERE
         }
-    }
-
-    /**
-     * Handle action Foo in the provided background thread with the provided
-     * parameters.
-     */
-    private void handleActionFoo(String param1, String param2) {
-        // TODO: Handle action Foo
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    /**
-     * Handle action Baz in the provided background thread with the provided
-     * parameters.
-     */
-    private void handleActionBaz(String param1, String param2) {
-        // TODO: Handle action Baz
-        throw new UnsupportedOperationException("Not yet implemented");
+        catch(IOException e){
+            Log.d("testing", e.toString());
+            e.printStackTrace();
+        }
     }
 }
