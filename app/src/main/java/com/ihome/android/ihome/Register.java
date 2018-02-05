@@ -71,7 +71,6 @@ public class Register extends AppCompatActivity {
                     isOk = false;
                 }*/
 
-                //TODO  SEND INFO TO RASPBERRY PI
                 if (isOk)       // Build the register message and sent it to server
                 {
                     String message = getString(R.string.CODE_REGISTER) + getString(R.string.PARAM_DIVIDE) + userName.getText().toString() + getString(R.string.PARAM_DIVIDE) + pass.getText().toString() + getString(R.string.PARAM_DIVIDE) + codeEdit.getText().toString();
@@ -80,7 +79,6 @@ public class Register extends AppCompatActivity {
                     m.execute(message, getString(R.string.SERVER_IP));
                 }
 
-                //TODO ONLY AFTER WE GET OK FROM SERVER CHANGE ACTIVITY, MAYBE SHOW LOADING
             }
         });
     }

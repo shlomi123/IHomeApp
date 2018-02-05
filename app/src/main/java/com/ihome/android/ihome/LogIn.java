@@ -32,7 +32,6 @@ public class LogIn extends AppCompatActivity {
             public void onClick(View v) {
                 userName = (EditText) findViewById(R.id.NameEdit);
                 pass = (EditText) findViewById(R.id.PasswordEdit);
-                //TODO VALIDATE INFORMATION WITH RASPBERRY PI
 
                 boolean isOk = true;
 
@@ -53,8 +52,6 @@ public class LogIn extends AppCompatActivity {
                     test m = new test();
                     m.execute(message, getString(R.string.SERVER_IP));
                 }
-
-                //TODO ONLY AFTER WE GET OK FROM SERVER CHANGE ACTIVITY, MAYBE SHOW LOADING
 
             }
 

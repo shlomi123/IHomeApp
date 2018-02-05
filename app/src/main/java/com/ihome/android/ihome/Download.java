@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TableRow;
 import android.widget.Toast;
 
@@ -30,6 +31,17 @@ public class Download extends AppCompatActivity {
 
         asncTask m = new asncTask();
         m.execute(getString(R.string.SERVER_IP));
+
+        Button button = (Button) findViewById(R.id.btnDownloadNext);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                  //TODO query from server all files that were selected
+                /*Intent upload_service= new Intent(getApplicationContext(), Download_Service.class);
+                  upload_service.setData(Uri.parse(name));
+                  getApplicationContext().startService(upload_service);*/
+            }
+        });
     }
 
     private class asncTask extends AsyncTask<String, String, String> {
@@ -68,7 +80,7 @@ public class Download extends AppCompatActivity {
                     response = response.substring(5);
                 }
 
-                Log.d("testing", response);
+                //Log.d("testing", response);
 
                 soc.close();
                 return response;
@@ -85,23 +97,30 @@ public class Download extends AppCompatActivity {
         protected void onPostExecute(String result)
         {
             final String[] names = result.split("&&");
-            Log.d("testing", names[0]);
+            //Log.d("testing", names[0]);
             if (!names[0].equals("200")) // If no files on server
             {
                 LinearLayout layout = (LinearLayout) findViewById(R.id.downloadLayout);
                 for (int i = 0; i < names.length; i++) {
-                    final Button myButton = new Button(Download.this);
+                    final RadioButton myButton = new RadioButton(Download.this);
                     myButton.setText(names[i]);
                     myButton.setId(i);
-                    final String name = myButton.getText().toString();
-
                     layout.addView(myButton);
-
+                    //TODO make radio buttons uncheckable
+                    final String name = myButton.getText().toString();
                     myButton.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
-                            Intent upload_service= new Intent(getApplicationContext(), Download_Service.class);
-                            upload_service.setData(Uri.parse(name));
-                            getApplicationContext().startService(upload_service);
+                            if (myButton.isChecked())
+                            {
+                                myButton.setChecked(false);
+                                Toast toast = Toast.makeText(getApplicationContext(), name + " is checked", Toast.LENGTH_LONG);
+                                toast.show();
+                            }
+                            else
+                            {
+                                myButton.setChecked(true);
+                            }
+
                         }
                     });
                 }

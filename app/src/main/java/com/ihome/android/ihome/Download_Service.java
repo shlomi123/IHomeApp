@@ -24,13 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-/**
- * An {@link IntentService} subclass for handling asynchronous task requests in
- * a service on a separate handler thread.
- * <p>
- * TODO: Customize class - update intent actions, extra parameters and static
- * helper methods.
- */
+
 public class Download_Service extends IntentService {
 
     public Download_Service() {
@@ -46,8 +40,9 @@ public class Download_Service extends IntentService {
             // open socket and send message
             Socket soc = new Socket(getString(R.string.SERVER_IP), 1618);
             DataInputStream reader = new DataInputStream(soc.getInputStream());
+            OutputStream output = null;
             String response = "";
-            byte[] msg = new byte[1000];
+            byte[] msg = new byte[1024];
             Boolean end = false;
             int bytesRead;
             //send message to server
@@ -55,6 +50,7 @@ public class Download_Service extends IntentService {
             writer.write("105" + "@@" + intent.getDataString());
             writer.flush();
 
+            // receive confirmation
             while (!end)
             {
                 bytesRead = reader.read(msg);
@@ -65,40 +61,28 @@ public class Download_Service extends IntentService {
                 }
             }
 
+            //send confirmation
             writer.write("200");
             writer.flush();
 
+            //Open file
             File root = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath());
-            File gpxfile = new File(root + File.separator + intent.getDataString());
-            gpxfile.createNewFile();
-            //Path path = Paths.get(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath());
-            OutputStream output = null;
-            output = new BufferedOutputStream(new FileOutputStream(gpxfile));
-            //FileWriter fileWriter = new FileWriter(gpxfile);
+            File folder = new File(root, "IHome");
+            folder.mkdir();
+            File file = new File(folder, intent.getDataString());
+            file.createNewFile();
+            output = new BufferedOutputStream(new FileOutputStream(file));
 
-            end = false;
-            response = "";
-            msg = new byte[4096];
+            //receive file
+            msg = new byte[16*1024];
 
-            while (!end)
+            while ((bytesRead = reader.read(msg)) > 0)
             {
-                bytesRead = reader.read(msg);
-                //fileWriter.write(msg.toString());
-                //fileWriter.flush();
-                output.write(msg);
-              //  Files.write(path, aBytes); //creates, overwrites
-                /*if (response.substring(response.length() - 4).equals("200"))
-                {
-                    end = true;
-                }*/
-
+                output.write(msg, 0, bytesRead);
             }
 
-            //fileWriter.close();
-            Log.d("testing", response);
-
-
-
+            output.close();
+            reader.close();
             soc.close();        //TODO CLOSE SOCKETS EVERYWHERE
         }
         catch(IOException e){

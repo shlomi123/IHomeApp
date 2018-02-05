@@ -129,9 +129,9 @@ public class Upload_Service extends IntentService {
 
             Log.d("testing", response);
 
-            if (bufferinputstream != null) bufferinputstream.close();
-            if (outputstream != null) outputstream.close();
-            if (soc!=null) soc.close();
+            bufferinputstream.close();
+            outputstream.close();
+            soc.close();
         }
         catch(IOException e){
             Log.d("testing", e.toString());
