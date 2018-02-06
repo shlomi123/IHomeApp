@@ -1,24 +1,18 @@
 package com.ihome.android.ihome;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.DynamicLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.TableRow;
 import android.widget.Toast;
-
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -31,17 +25,6 @@ public class Download extends AppCompatActivity {
 
         asncTask m = new asncTask();
         m.execute(getString(R.string.SERVER_IP));
-
-        Button button = (Button) findViewById(R.id.btnDownloadNext);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                  //TODO query from server all files that were selected
-                /*Intent upload_service= new Intent(getApplicationContext(), Download_Service.class);
-                  upload_service.setData(Uri.parse(name));
-                  getApplicationContext().startService(upload_service);*/
-            }
-        });
     }
 
     private class asncTask extends AsyncTask<String, String, String> {
@@ -50,8 +33,8 @@ public class Download extends AppCompatActivity {
             try
             {
                 String response = "";
-                byte[] msg = new byte[1000];
-                Boolean end = false;
+                byte[] msg;
+                Boolean end;
                 int bytesRead;
                 // open socket and send message
                 Socket soc = new Socket(params[0], 1618);
@@ -102,25 +85,19 @@ public class Download extends AppCompatActivity {
             {
                 LinearLayout layout = (LinearLayout) findViewById(R.id.downloadLayout);
                 for (int i = 0; i < names.length; i++) {
-                    final RadioButton myButton = new RadioButton(Download.this);
+                    final Button myButton = new Button(Download.this);
                     myButton.setText(names[i]);
                     myButton.setId(i);
                     layout.addView(myButton);
                     //TODO make radio buttons uncheckable
                     final String name = myButton.getText().toString();
+
                     myButton.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
-                            if (myButton.isChecked())
-                            {
-                                myButton.setChecked(false);
-                                Toast toast = Toast.makeText(getApplicationContext(), name + " is checked", Toast.LENGTH_LONG);
-                                toast.show();
-                            }
-                            else
-                            {
-                                myButton.setChecked(true);
-                            }
-
+                            Intent upload_service= new Intent(getApplicationContext(), Download_Service.class);
+                            upload_service.setData(Uri.parse(name));
+                            getApplicationContext().startService(upload_service);
+                            finish();
                         }
                     });
                 }

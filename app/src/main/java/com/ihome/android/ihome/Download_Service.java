@@ -81,6 +81,15 @@ public class Download_Service extends IntentService {
                 output.write(msg, 0, bytesRead);
             }
 
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "Successfully Downloaded File", Toast.LENGTH_SHORT).show();
+                }
+            });
+
             output.close();
             reader.close();
             soc.close();        //TODO CLOSE SOCKETS EVERYWHERE

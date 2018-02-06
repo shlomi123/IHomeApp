@@ -2,8 +2,10 @@ package com.ihome.android.ihome;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -20,6 +22,13 @@ public class MainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        boolean flag = preferences.getBoolean("Flag", true);
+        if(flag)
+        {
+            startActivity(new Intent(this, ConnectToRasp.class));
+        }
 
         ImageButton upload = (ImageButton) findViewById(R.id.btnUpload);
         upload.setOnClickListener(new View.OnClickListener() {

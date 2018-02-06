@@ -36,8 +36,4 @@ public class wifiConfig extends AppCompatActivity {
             }
         });
     }
-
-    /*void sendMessage(String msg){
-
-    }*/
 }

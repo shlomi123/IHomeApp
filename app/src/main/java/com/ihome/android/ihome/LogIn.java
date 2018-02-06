@@ -1,7 +1,9 @@
 package com.ihome.android.ihome;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -114,6 +116,11 @@ public class LogIn extends AppCompatActivity {
                 {
                     Toast toast = Toast.makeText(getApplicationContext(), "LogIn Successful", Toast.LENGTH_LONG);
                     toast.show();
+
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("Flag", false);
+                    editor.apply();
 
                     Intent myIntent = new Intent(LogIn.this,
                             MainPage.class);

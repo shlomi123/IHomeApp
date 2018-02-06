@@ -19,7 +19,7 @@
         android:gravity="center"
         android:id="@+id/DownloadScrollView">
 
-        <RadioGroup
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,17 +27,8 @@
             android:gravity="start"
             android:id="@+id/downloadLayout">
 
-        </RadioGroup>
+        </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/btnDownloadNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:layout_centerHorizontal="true"
-        android:text="Next" />
 
 </RelativeLayout>
 
