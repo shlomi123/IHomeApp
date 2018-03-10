@@ -14,12 +14,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Wifi Configuration For IHome's Wifi"
+        android:text="Wifi Configuration"
         android:id="@+id/textView2"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="98dp"
         android:textSize="28dp"
+        android:gravity="center"
         android:textColor="@color/colorText" />
 
     <EditText

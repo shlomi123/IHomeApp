@@ -23,14 +23,16 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        /*SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean flag = preferences.getBoolean("Flag", true);
         if(flag)
         {
             startActivity(new Intent(this, ConnectToRasp.class));
-        }
+        }*/
 
-        ImageButton upload = (ImageButton) findViewById(R.id.btnUpload);
+        //startActivity(new Intent(this, ConnectToRasp.class)); //TODO testing, erase when done testing
+
+        final ImageButton upload = (ImageButton) findViewById(R.id.btnUpload);
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

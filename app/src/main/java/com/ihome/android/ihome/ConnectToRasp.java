@@ -26,7 +26,7 @@ public class ConnectToRasp extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String wifiName = getWifiName(getApplicationContext());
+                /*String wifiName = getWifiName(getApplicationContext());
 
                 if(wifiName != null) {
                     if (wifiName.compareTo(getString(R.string.wifiSSID)) == 0) {
@@ -42,7 +42,7 @@ public class ConnectToRasp extends AppCompatActivity {
                 else {
                     Toast toast = Toast.makeText(getApplicationContext(), "Not Connected to iHome", Toast.LENGTH_LONG);
                     toast.show();
-                }
+                }*/
 
                 //TODO JUST FOR TESTING --------- DELETE THIS
                 Intent myIntent = new Intent(ConnectToRasp.this,

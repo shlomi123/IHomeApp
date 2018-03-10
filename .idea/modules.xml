@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\User\AndroidStudioProjects\IHome-Git\IHomeApp\IHome-Git.iml" filepath="C:\Users\User\AndroidStudioProjects\IHome-Git\IHomeApp\IHome-Git.iml" />
       <module fileurl="file://$PROJECT_DIR$/IHomeApp.iml" filepath="$PROJECT_DIR$/IHomeApp.iml" />
-      <module fileurl="file://C:\Users\User\Desktop\IHome-Git\IHomeApp.iml" filepath="C:\Users\User\Desktop\IHome-Git\IHomeApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/libraries/filebrowser/filebrowser.iml" filepath="$PROJECT_DIR$/app/libraries/filebrowser/filebrowser.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/libraries/libraries.iml" filepath="$PROJECT_DIR$/app/libraries/libraries.iml" />
