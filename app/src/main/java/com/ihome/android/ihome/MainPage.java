@@ -52,6 +52,17 @@ public class MainPage extends AppCompatActivity {
 
             }
         });
+
+        ImageButton logs = (ImageButton) findViewById(R.id.btnLogs);
+        logs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MainPage.this,
+                        Logs.class);
+                startActivity(myIntent);
+
+            }
+        });
     }
 
     @Override

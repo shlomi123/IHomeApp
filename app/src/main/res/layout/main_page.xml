@@ -87,11 +87,11 @@
                 android:layout_marginBottom="16dp"/>
 
             <ImageButton
+                android:id="@+id/btnLogs"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:id="@+id/imageButton6"
-                android:src="@drawable/log_icon"
-                android:background="@drawable/round_button" />
+                android:background="@drawable/round_button"
+                android:src="@drawable/log_icon" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

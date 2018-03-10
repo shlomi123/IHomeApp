@@ -47,7 +47,9 @@
 
         <service
             android:name=".Download_Service"
-            android:exported="false"></service>
+            android:exported="false" />
+
+        <activity android:name=".Logs"></activity>
     </application>
 
 </manifest>
