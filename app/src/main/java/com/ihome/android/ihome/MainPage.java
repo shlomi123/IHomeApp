@@ -23,12 +23,12 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
 
-        /*SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean flag = preferences.getBoolean("Flag", true);
         if(flag)
         {
             startActivity(new Intent(this, ConnectToRasp.class));
-        }*/
+        }
 
         //startActivity(new Intent(this, ConnectToRasp.class)); //TODO testing, erase when done testing
 

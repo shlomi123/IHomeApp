@@ -3,6 +3,7 @@ package com.ihome.android.ihome;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -60,7 +61,8 @@ public class Upload_Service extends IntentService {
 
             fileNames = fileNames.substring(0, fileNames.length()-2);
             // Send Upload code according to protocol to server
-            writer.write("103" + "@@" + fileNames); // works when we send HELLO
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+            writer.write("103" + "@@" + pref.getString("Username", "error") + "@@" + fileNames); // works when we send HELLO
             writer.flush();
 
 

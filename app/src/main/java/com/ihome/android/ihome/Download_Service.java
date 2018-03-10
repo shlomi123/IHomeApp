@@ -3,6 +3,7 @@ package com.ihome.android.ihome;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
@@ -47,7 +48,8 @@ public class Download_Service extends IntentService {
             int bytesRead;
             //send message to server
             PrintWriter writer = new PrintWriter(soc.getOutputStream());
-            writer.write("105" + "@@" + intent.getDataString());
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+            writer.write("105" + "@@" + pref.getString("Username", "error") + "@@" + intent.getDataString());
             writer.flush();
 
             // receive confirmation

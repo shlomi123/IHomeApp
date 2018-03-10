@@ -49,6 +49,11 @@ public class LogIn extends AppCompatActivity {
 
                 if (isOk)       // Build the login message and sent it to server
                 {
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("Username", userName.getText().toString());
+                    editor.apply();
+
                     String message = getString(R.string.CODE_LOGIN) + getString(R.string.PARAM_DIVIDE) + userName.getText().toString() + getString(R.string.PARAM_DIVIDE) + pass.getText().toString();
 
                     test m = new test();
