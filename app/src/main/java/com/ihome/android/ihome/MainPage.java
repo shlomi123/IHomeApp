@@ -23,12 +23,12 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        /*SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean flag = preferences.getBoolean("Flag", true);
         if(flag)
         {
             startActivity(new Intent(this, ConnectToRasp.class));
-        }
+        }*/
 
         //startActivity(new Intent(this, ConnectToRasp.class)); //TODO testing, erase when done testing
 
@@ -59,6 +59,17 @@ public class MainPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent myIntent = new Intent(MainPage.this,
                         Logs.class);
+                startActivity(myIntent);
+
+            }
+        });
+
+        ImageButton liveStream = (ImageButton) findViewById(R.id.liveStreamButton);
+        liveStream.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MainPage.this,
+                        LiveStream.class);
                 startActivity(myIntent);
 
             }

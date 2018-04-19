@@ -49,7 +49,8 @@
             android:name=".Download_Service"
             android:exported="false" />
 
-        <activity android:name=".Logs"></activity>
+        <activity android:name=".Logs" />
+        <activity android:name=".LiveStream"></activity>
     </application>
 
 </manifest>

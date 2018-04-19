@@ -86,8 +86,12 @@ public class Download extends AppCompatActivity {
                 LinearLayout layout = (LinearLayout) findViewById(R.id.downloadLayout);
                 for (int i = 0; i < names.length; i++) {
                     final Button myButton = new Button(Download.this);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    params.setMargins(0,0,0,20);
+                    myButton.setLayoutParams(params);
                     myButton.setText(names[i]);
                     myButton.setId(i);
+                    myButton.setBackgroundResource(R.drawable.log_text_view);
                     layout.addView(myButton);
                     //TODO make radio buttons uncheckable
                     final String name = myButton.getText().toString();

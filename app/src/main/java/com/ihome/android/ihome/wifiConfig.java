@@ -98,7 +98,7 @@ public class wifiConfig extends AppCompatActivity {
                             {
                                 if (device.getName().equals("raspberrypi"))
                                 {
-                                    Log.d("TrackingFlow", device.getName());
+                                    Log.d("testing", device.getName());
                                     ParcelUuid[] uuids = device.getUuids();
                                     BluetoothSocket socket = device.createRfcommSocketToServiceRecord(uuids[0].getUuid());
                                     socket.connect();
@@ -112,25 +112,34 @@ public class wifiConfig extends AppCompatActivity {
                                     {
                                         bytesRead = is.read(msg);
                                         result += new String(msg, 0, bytesRead);
-                                        if (result.equals("200"))
+                                        if (result.equals("200") || result.equals("100"))
                                         {
                                             flag = false;
                                         }
                                     }
-                                    Log.d("TrackingFlow", result);
+                                    Log.d("testing", result);
+                                }
+                                else
+                                {
+                                    runOnUiThread(new Runnable() {
+                                        public void run() {
+
+                                            Toast.makeText(wifiConfig.this, "Wrong bluetooth", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
                             }
                         }
 
-                        Log.d("TrackingFlow", "No appropriate paired devices.");
+                        Log.d("testing", "No appropriate paired devices.");
                     } else {
-                        Log.d("TrackingFlow", "Bluetooth is disabled.");
+                        Log.d("testing", "Bluetooth is disabled.");
                     }
                 }
                 return result;
 
             }catch(IOException e){
-                Log.d("TrackingFlow", "Read: " + e.toString());
+                Log.d("testing", "Read: " + e.toString());
                 return null;
             }
         }

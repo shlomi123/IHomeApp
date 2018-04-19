@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Go to settings -> Wifi -> connect to iHome network"
+        android:text="Go to settings -> Bluetooth -> connect to iHome"
         android:id="@+id/textView"
         android:textAlignment="center"
         android:layout_marginTop="128dp"

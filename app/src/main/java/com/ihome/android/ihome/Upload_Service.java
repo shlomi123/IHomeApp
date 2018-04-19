@@ -129,6 +129,15 @@ public class Upload_Service extends IntentService {
                 }
             }
 
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "Successfully Uploaded", Toast.LENGTH_SHORT).show();
+                }
+            });
+
             Log.d("testing", response);
 
             bufferinputstream.close();
