@@ -21,6 +21,7 @@ public class Register extends AppCompatActivity {
     EditText pass;
     EditText passCheck;
     EditText codeEdit;
+    EditText email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class Register extends AppCompatActivity {
         pass = (EditText) findViewById(R.id.PasswordEdit);
         passCheck = (EditText) findViewById(R.id.PasswordCheckEdit);
         codeEdit = (EditText) findViewById(R.id.CodeEdit);
+        email = (EditText) findViewById(R.id.EmailEdit);
 
         Button next = (Button) findViewById(R.id.btnNext);  // When next button is pressed
         next.setOnClickListener(new View.OnClickListener() {
@@ -63,17 +65,11 @@ public class Register extends AppCompatActivity {
                 {
                     isOk = false;
                 }
-                /*String code = codeEdit.getText().toString();
-                if (code.compareTo(getString(R.string.code)) != 0)  // If the code doesn't match the registration code
-                {
-                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.error_wrongCode), Toast.LENGTH_LONG);
-                    toast.show();
-                    isOk = false;
-                }*/
+
 
                 if (isOk)       // Build the register message and sent it to server
                 {
-                    String message = getString(R.string.CODE_REGISTER) + getString(R.string.PARAM_DIVIDE) + userName.getText().toString() + getString(R.string.PARAM_DIVIDE) + pass.getText().toString() + getString(R.string.PARAM_DIVIDE) + codeEdit.getText().toString();
+                    String message = getString(R.string.CODE_REGISTER) + getString(R.string.PARAM_DIVIDE) + userName.getText().toString() + getString(R.string.PARAM_DIVIDE) + pass.getText().toString() + getString(R.string.PARAM_DIVIDE) + codeEdit.getText().toString() + getString(R.string.PARAM_DIVIDE) + email.getText().toString();
 
                     test m = new test();
                     m.execute(message, getString(R.string.SERVER_IP));
@@ -140,6 +136,11 @@ public class Register extends AppCompatActivity {
                 else if(result.equals("1021"))
                 {
                     Toast toast = Toast.makeText(getApplicationContext(), "Username Already Exists", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                else if(result.equals("1022"))
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Wrong Email", Toast.LENGTH_LONG);
                     toast.show();
                 }
             }

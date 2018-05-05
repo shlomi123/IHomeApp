@@ -12,15 +12,16 @@
 
 
     <TextView
+        android:id="@+id/RegisterTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
         android:text="Register"
-        android:id="@+id/RegisterTitle"
-        android:layout_marginTop="70dp"
-        android:textSize="28dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/colorText"
-        android:layout_centerHorizontal="true"/>
+        android:textSize="28dp" />
 
     <EditText
         android:id="@+id/NameEdit"
@@ -67,14 +68,25 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp" />
 
+    <EditText
+        android:id="@+id/EmailEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="email address"
+        android:inputType="textEmailAddress"
+        android:layout_below="@+id/CodeEdit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
     <Button
+        android:id="@+id/btnNext"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Next"
-        android:id="@+id/btnNext"
-        android:layout_marginTop="30dp"
-        android:layout_below="@id/CodeEdit"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/EmailEdit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:text="Next" />
 
 </RelativeLayout>

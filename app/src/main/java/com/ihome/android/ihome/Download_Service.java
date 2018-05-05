@@ -67,11 +67,18 @@ public class Download_Service extends IntentService {
             writer.write("200");
             writer.flush();
 
+            String filename = intent.getDataString();
+            int index =  filename.lastIndexOf('.');
+            String fileType = filename.substring(index);
+            Log.d("file_type_bla", fileType);
+            filename = filename.substring(0, index);
+            Log.d("file_type_bla", filename);
+
             //Open file
             File root = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath());
             File folder = new File(root, "IHome");
             folder.mkdir();
-            File file = new File(folder, intent.getDataString());
+            File file = new File(folder, filename + fileType);
             file.createNewFile();
             output = new BufferedOutputStream(new FileOutputStream(file));
 

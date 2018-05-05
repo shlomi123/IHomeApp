@@ -54,8 +54,6 @@ public class wifiConfig extends AppCompatActivity {
 
                 message = name.getText().toString() + "@@" + pass.getText().toString(); // get WIFI name and password
 
-                //TODO SEND WIFI DETAILS TO SERVER
-
                 test m = new test();
                 m.execute();
             }
