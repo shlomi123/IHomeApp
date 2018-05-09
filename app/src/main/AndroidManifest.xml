@@ -50,7 +50,8 @@
             android:exported="false" />
 
         <activity android:name=".Logs" />
-        <activity android:name=".LiveStream"></activity>
+        <activity android:name=".LiveStream" />
+        <activity android:name=".Motion_Detector"></activity>
     </application>
 
 </manifest>

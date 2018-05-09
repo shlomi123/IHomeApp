@@ -74,6 +74,17 @@ public class MainPage extends AppCompatActivity {
 
             }
         });
+
+        ImageButton motionDetector = (ImageButton) findViewById(R.id.btnMotionDetect);
+        motionDetector.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MainPage.this,
+                        Motion_Detector.class);
+                startActivity(myIntent);
+
+            }
+        });
     }
 
     @Override
