@@ -49,7 +49,6 @@ public class Download extends AppCompatActivity {
                 end = false;
                 response = "";
                 msg = new byte[1000];
-                while (!end)    // TODO ADD TIMEOUT
                 {
                     bytesRead = reader.read(msg);
                     response += new String(msg, 0, bytesRead);
@@ -93,7 +92,6 @@ public class Download extends AppCompatActivity {
                     myButton.setId(i);
                     myButton.setBackgroundResource(R.drawable.log_text_view);
                     layout.addView(myButton);
-                    //TODO make radio buttons uncheckable
                     final String name = myButton.getText().toString();
 
                     myButton.setOnClickListener(new View.OnClickListener() {

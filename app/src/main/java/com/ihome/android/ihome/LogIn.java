@@ -98,7 +98,7 @@ public class LogIn extends AppCompatActivity {
                 StringBuilder response = new StringBuilder();
                 String line;
                 //read from socket
-                while ((line = reader.readLine()) != null)  //TODO REPLACE
+                while ((line = reader.readLine()) != null)
                     response.append(line);
 
                 writer.close();
@@ -127,9 +127,7 @@ public class LogIn extends AppCompatActivity {
                     editor.putBoolean("Flag", false);
                     editor.apply();
 
-                    Intent myIntent = new Intent(LogIn.this,
-                            MainPage.class);
-                    startActivity(myIntent);
+                    finish();
                 }
                 else if (result.equals("1010"))
                 {

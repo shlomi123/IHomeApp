@@ -25,22 +25,18 @@ public class LiveStream extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_stream);
+
         test m = new test();
         m.execute("107", getString(R.string.SERVER_IP));
     }
 
-    @Override
+    /*@Override
     protected void onDestroy()
     {
         end m = new end();
         m.execute("300", getString(R.string.SERVER_IP));
         super.onDestroy();
-    }
-
-
-
-
-
+    }*/
 
 
     private class test extends AsyncTask<String,String,String> {
@@ -60,14 +56,11 @@ public class LiveStream extends AppCompatActivity {
                 StringBuilder response = new StringBuilder();
                 String line;
                 //read from socket
-                while ((line = reader.readLine()) != null)  //TODO REPLACE
+                while ((line = reader.readLine()) != null)
                     response.append(line);
 
-                /*try {
-                    wait(5000);
-                } catch (InterruptedException e){
-                    e.printStackTrace();
-                }*/
+                writer.close();
+                soc.close();
 
                 return response.toString();
 

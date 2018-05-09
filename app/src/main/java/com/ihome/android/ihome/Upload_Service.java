@@ -99,7 +99,7 @@ public class Upload_Service extends IntentService {
                 response = "";
                 msg = new byte[1000];
 
-                while (!end)    // TODO ADD TIMEOUT
+                while (!end)
                 {
                     bytesRead = reader.read(msg);
                     response += new String(msg, 0, bytesRead);

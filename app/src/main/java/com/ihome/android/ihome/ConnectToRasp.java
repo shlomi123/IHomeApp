@@ -61,7 +61,7 @@ public class ConnectToRasp extends AppCompatActivity {
                 if (state == NetworkInfo.DetailedState.CONNECTED || state == NetworkInfo.DetailedState.OBTAINING_IPADDR) {
                     return wifiInfo.getSSID();
                 }
-            } //TODO WHAT HAPPENDS IF THERE ARE SERVERAL IDENTICAL WIFI NAMES
+            }
         }
         return null;
     }

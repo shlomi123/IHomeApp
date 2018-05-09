@@ -58,7 +58,7 @@ public class Logs extends AppCompatActivity {
                 StringBuilder response = new StringBuilder();
                 String line;
                 //read from socket
-                while ((line = reader.readLine()) != null)  //TODO REPLACE
+                while ((line = reader.readLine()) != null)
                     response.append(line);
 
                 writer.close();

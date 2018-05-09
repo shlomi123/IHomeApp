@@ -101,7 +101,7 @@ public class Download_Service extends IntentService {
 
             output.close();
             reader.close();
-            soc.close();        //TODO CLOSE SOCKETS EVERYWHERE
+            soc.close();
         }
         catch(IOException e){
             Log.d("testing", e.toString());

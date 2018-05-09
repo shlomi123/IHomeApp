@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainPage"
-            android:screenOrientation="portrait"> <!-- TODO CHANGE BACK TO CONNECT TO RASP -->
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -202,7 +202,6 @@ public class FileBrowserWithCustomHandler extends AppCompatActivity implements O
         final CustomAdapterItemClickListener onItemClickListener = new CustomAdapterItemClickListener(mContext, mFilesList, new CustomAdapterItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                // TODO Handle item click
                 if (mAdapter.getChoiceMode()== Constants.CHOICE_MODE.SINGLE_CHOICE) {
                     File f = mAdapter.getItemAt(position).getFile();
                     if (f.isDirectory()) {

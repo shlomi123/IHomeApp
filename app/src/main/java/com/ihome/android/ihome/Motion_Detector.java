@@ -14,6 +14,7 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -23,9 +24,7 @@ public class Motion_Detector extends AppCompatActivity {
     private Button button;
     private TextView textView;
     private StringBuilder response = new StringBuilder();
-    private Socket soc;
-    private PrintWriter writer;
-    BufferedReader reader;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,19 +54,22 @@ public class Motion_Detector extends AppCompatActivity {
         m.execute("109", getString(R.string.SERVER_IP));
     }
 
-    @Override
+    /*@Override
     protected void onDestroy()
     {
         end m = new end();
         m.execute("300", getString(R.string.SERVER_IP));
         super.onDestroy();
-    }
+    }*/
 
     private class task1 extends AsyncTask<String,String,String> {
 
         @Override
         protected String doInBackground(String... params) {   //params[0] - message, params[1] - server IP
             try {
+                Socket soc;
+                PrintWriter writer;
+                BufferedReader reader;
                 // open socket and send message
                 soc = new Socket(params[1], 1618);
                 //send message to server
@@ -79,12 +81,12 @@ public class Motion_Detector extends AppCompatActivity {
                 reader = new BufferedReader(new InputStreamReader(soc.getInputStream()));
                 String line;
                 //read from socket
-                Log.d("qwertyuiop", "receiving");
-                while ((line = reader.readLine()) != null)  //TODO REPLACE
-                    response.append(line);
+                line = reader.readLine();
+                response.append(line);
 
-                Log.d("qwertyuiop", response.toString());
 
+                writer.close();
+                soc.close();
                 return response.toString();
 
             } catch (IOException e) {
@@ -99,14 +101,12 @@ public class Motion_Detector extends AppCompatActivity {
             {
                 if (result.equals("1090"))
                 {
-                    Log.d("qwertyuiop", "not active");
                     textView.setText("Status: Not-Active");
                     button.setVisibility(View.VISIBLE);
                     button.setText("Activate");
                 }
                 else if (result.equals("1091"))
                 {
-                    Log.d("qwertyuiop", "active");
                     textView.setText("Status: Active");
                     button.setVisibility(View.VISIBLE);
                     button.setText("Deactivate");
@@ -130,6 +130,9 @@ public class Motion_Detector extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {   //params[0] - message, params[1] - server IP
             try {
+                Socket soc;
+                PrintWriter writer;
+                BufferedReader reader;
                 // open socket and send message
                 soc = new Socket(params[1], 1618);
                 //send message to server
@@ -138,14 +141,20 @@ public class Motion_Detector extends AppCompatActivity {
                 writer.flush();
 
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(soc.getInputStream()));
-                StringBuilder response = new StringBuilder();
+                reader = new BufferedReader(new InputStreamReader(soc.getInputStream()));
+                StringBuilder res = new StringBuilder();
                 String line;
                 //read from socket
-                while ((line = reader.readLine()) != null)  //TODO REPLACE
-                    response.append(line);
+                Log.d("qwertyuiop", "receiving");
+                while ((line = reader.readLine()) != null)
+                    res.append(line);
 
-                return response.toString();
+                Log.d("qwertyuiop", res.toString());
+
+                writer.close();
+                soc.close();
+
+                return res.toString();
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -184,7 +193,7 @@ public class Motion_Detector extends AppCompatActivity {
     }
 
 
-    private class end extends AsyncTask<String,String,String> {
+    /*private class end extends AsyncTask<String,String,String> {
 
 
         @Override
@@ -210,5 +219,5 @@ public class Motion_Detector extends AppCompatActivity {
 
         }
 
-    }
+    }*/
 }
