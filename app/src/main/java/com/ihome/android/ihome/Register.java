@@ -87,6 +87,7 @@ public class Register extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {   //params[0] - message, params[1] - server IP
             try{
+                Log.d("qwertyuiop", params[0]);
                 Socket soc;
                 PrintWriter writer;
                 // open socket and send message
@@ -104,6 +105,8 @@ public class Register extends AppCompatActivity {
                 while ((line = reader.readLine()) != null)
                     response.append(line);
 
+                Log.d("qwertyuiop", response.toString());
+
                 writer.close();
                 soc.close();
 
@@ -118,7 +121,6 @@ public class Register extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result)
         {
-            Log.d("qwertyuiop", result);
             if (result != null)
             {
                 if(result.equals("200"))
@@ -126,9 +128,7 @@ public class Register extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(), "Register Successful", Toast.LENGTH_LONG);
                     toast.show();
 
-                    Intent myIntent = new Intent(Register.this,
-                            LogIn.class);
-                    startActivity(myIntent);
+                    finish();
                 }
                 else if (result.equals("1020"))
                 {

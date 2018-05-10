@@ -1,5 +1,6 @@
 package com.ihome.android.ihome;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ public class Motion_Detector extends AppCompatActivity {
     private Button button;
     private TextView textView;
     private StringBuilder response = new StringBuilder();
+    private String username;
 
 
     @Override
@@ -33,6 +35,9 @@ public class Motion_Detector extends AppCompatActivity {
         button = (Button) findViewById(R.id.btnActivate);
         button.setVisibility(View.GONE);
         textView = (TextView) findViewById(R.id.MotionDetectorStatus);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+        username = pref.getString("Username", "Error");
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,12 +45,12 @@ public class Motion_Detector extends AppCompatActivity {
                 if (response.toString().equals("1090"))
                 {
                     task2 m = new task2();
-                    m.execute("110", getString(R.string.SERVER_IP));
+                    m.execute("110@@" + username, getString(R.string.SERVER_IP));
                 }
                 if (response.toString().equals("1091"))
                 {
                     task2 m = new task2();
-                    m.execute("111", getString(R.string.SERVER_IP));
+                    m.execute("111@@" + username, getString(R.string.SERVER_IP));
                 }
             }
         });
@@ -54,13 +59,6 @@ public class Motion_Detector extends AppCompatActivity {
         m.execute("109", getString(R.string.SERVER_IP));
     }
 
-    /*@Override
-    protected void onDestroy()
-    {
-        end m = new end();
-        m.execute("300", getString(R.string.SERVER_IP));
-        super.onDestroy();
-    }*/
 
     private class task1 extends AsyncTask<String,String,String> {
 
